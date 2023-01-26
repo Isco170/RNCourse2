@@ -1,4 +1,4 @@
-import { useState } from 'react'; 
+import { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,22 +13,30 @@ export default function App() {
 
   function addGoalHandler(enteredGoalText) {
     setCourseGoals((currentCourseGoals) => [
-      ...currentCourseGoals, { text: enteredGoalText, id: Math.random().toString()},
+      ...currentCourseGoals, { text: enteredGoalText, id: Math.random().toString() },
     ])
   };
+
+  function deleteGoalHandler() {
+    console.log('delete')
+  }
+
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal={addGoalHandler}/>
+      <GoalInput onAddGoal={addGoalHandler} />
       <View style={styles.goalsContainer}>
-        <FlatList 
-          data={courseGoals} 
+        <FlatList
+          data={courseGoals}
           renderItem={(itemData) => {
-          return <GoalItem text={itemData.item.text}/>;
-        }}
-        keyExtractor={ (item, index) => {
-          return item.id;
-        }}
-        alwaysBounceVertical={false}
+            return (
+              <GoalItem text={itemData.item.text}
+                onDeleteItem={deleteGoalHandler} />
+            );
+          }}
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
+          alwaysBounceVertical={false}
         />
 
       </View>
